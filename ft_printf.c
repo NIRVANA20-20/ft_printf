@@ -12,38 +12,25 @@
 
 #include "ft_printf.h"
 
-int check_fr(char forma)
+void	printf_helper(va_list *args, char forma, int *size)
 {
-	if(forma == 'c' || forma == 's' || forma == 'd' ||
-	   forma == 'i' || forma == 'u' || forma == 'x' ||
-	   forma == 'X' || forma == 'p' || forma == '%')
-	   return (1);
-	return(-1);
-}
-void	printf_helper(va_list args, char forma, int *size)
-{
-	if(check_fr(forma) == 1)
-	{
+
 	    if (forma == 'c')
-	    	*size += ft_putchar(va_arg(args, int));
+	    	*size += ft_putchar(va_arg(*args, int));
 	    else if (forma == 's')
-	    	*size += ft_putstr(va_arg(args, char *));
-	    else if (forma == 'd' || forma == 'i' || forma == 'u')
-	    	*size += ft_putnbr(va_arg(args, int), forma);
+	    	*size += ft_putstr(va_arg(*args, char *));
+	    else if (forma == 'd' || forma == 'i')
+	    	*size += ft_putnbr(va_arg(*args, int), forma);
+		else if (forma == 'u')
+	    	*size += ft_putnbr(va_arg(*args, unsigned int), forma);
 	    else if (forma == 'x' || forma == 'X')
-	    	*size += ft_puthexa(va_arg(args, unsigned int), forma);
+	    	*size += ft_puthexa(va_arg(*args, unsigned int), forma);
 	    else if (forma == 'p')
-	    	*size += ft_putaddr(va_arg(args, void *));
+	    	*size += ft_putaddr(va_arg(*args, void *));
 	    else if (forma == '%')
 	    	*size += ft_putchar('%');
-	}
-	else
-	{
-		*size += ft_putchar('%');
-	}
 
 }
-#include <stdio.h>
 int	ft_printf(const char *txt, ...)
 {
 	va_list		print;
@@ -57,15 +44,25 @@ int	ft_printf(const char *txt, ...)
 	size = 0;
 	while (txt[i])
 	{
-		if (txt[i] == '%')
+		if (txt[i] == '%' && txt[i+1])
 		{
 			i++;
 			printf_helper(print, txt[i], &size);
-			continue ;
+			if(size == -1)
+			{
+				return (-1);
+				va_end(print);
+			}			
 		}
-		size += ft_putchar(txt[i]);
-		if(size == -1)
-			return (-1);
+		else
+		{
+			size += ft_putchar(txt[i]);
+			if(size == -1)
+			{
+				return (-1);
+				va_end(print);
+			}
+		}
 		i++;
 	}
 	va_end(print);
