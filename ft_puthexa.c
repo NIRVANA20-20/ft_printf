@@ -15,17 +15,20 @@
 static int	nbrhexa(unsigned long long content, char const *base)
 {
 	int		cont;
+	int 	tmp;
 
 	cont = 0;
 	if (content >= 16)
 	{
-		cont += nbrhexa(content / 16, base);
-		if(cont == -1)
+		tmp = nbrhexa(content / 16, base);
+		if(tmp == -1)
 			return(-1);
+		cont += tmp;
 	}
-	cont += write(1, &base[content % 16], 1);
-	if(cont == -1)
+	tmp = write(1, &base[content % 16], 1);
+	if(tmp == -1)
 		return(-1);
+	count += tmp;
 	return (cont);
 }
 
