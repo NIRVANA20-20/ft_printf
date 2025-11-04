@@ -16,7 +16,7 @@ void	printf_helper(va_list *args, char forma, int *size)
 {
 
 	    if (forma == 'c')
-	    	*size += ft_putchar(va_arg(*args, int));
+	    	*size += ft_putchar(va_arg(*args, unsigned int));
 	    else if (forma == 's')
 	    	*size += ft_putstr(va_arg(*args, char *));
 	    else if (forma == 'd' || forma == 'i')
@@ -37,31 +37,21 @@ int	ft_printf(const char *txt, ...)
 	int			i;
 	int			size;
 
-	va_start(print, txt);
-	if (!txt)
+	if (!txt || write(1, " ", 0) == -1)
 		return (-1);
+	va_start(print, txt);
 	i = 0;
 	size = 0;
 	while (txt[i])
 	{
-		if (txt[i] == '%' && txt[i+1])
+		if (txt[i] == '%' && txt[i + 1])
 		{
 			i++;
 			printf_helper(print, txt[i], &size);
-			if(size == -1)
-			{
-				return (-1);
-				va_end(print);
-			}			
 		}
 		else
 		{
 			size += ft_putchar(txt[i]);
-			if(size == -1)
-			{
-				return (-1);
-				va_end(print);
-			}
 		}
 		i++;
 	}
