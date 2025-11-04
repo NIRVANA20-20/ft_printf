@@ -8,7 +8,7 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-%.o: %.c libftprintf.h
+%.o: %.c ft_printf.h
 	$(CC) $(CFLAGS) -c  $< -o $@
 	
 clean:
