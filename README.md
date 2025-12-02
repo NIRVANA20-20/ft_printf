@@ -13,7 +13,7 @@ For the ft_printf project of the 42 school cursus, we must recreate the famous C
 - Supported options: - 0 . * width
 
 ## Status
-Finished: 2022-02-07. Grade: 125/100.
+Finished: 2025-11-07. Grade: 125/100.
 
 ## Usage
 
