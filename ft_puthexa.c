@@ -6,7 +6,7 @@
 /*   By: olaizi <olaizi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:49:00 by olaizi            #+#    #+#             */
-/*   Updated: 2025/11/02 18:47:31 by olaizi           ###   ########.fr       */
+/*   Updated: 2025/11/03 09:27:05 by olaizi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,13 @@
 static int	nbrhexa(unsigned long long content, char const *base)
 {
 	int		cont;
-	int 	tmp;
 
 	cont = 0;
 	if (content >= 16)
 	{
-		tmp = nbrhexa(content / 16, base);
-		if(tmp == -1)
-			return(-1);
-		cont += tmp;
+		cont += nbrhexa(content / 16, base);
 	}
-	tmp = write(1, &base[content % 16], 1);
-	if(tmp == -1)
-		return(-1);
-	count += tmp;
+	cont += write(1, &base[content % 16], 1);
 	return (cont);
 }
 
