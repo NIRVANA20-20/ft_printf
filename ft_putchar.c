@@ -6,7 +6,7 @@
 /*   By: olaizi <olaizi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:47:29 by olaizi            #+#    #+#             */
-/*   Updated: 2025/11/02 18:43:59 by olaizi           ###   ########.fr       */
+/*   Updated: 2025/11/03 09:26:50 by olaizi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,5 @@
 
 int	ft_putchar(char c)
 {
-	int	i;
-
-	i = write(1, &c, 1);
-	if(i == -1)
-		return(-1);
-	return (i);
+	return (write(1, &c, 1));
 }
